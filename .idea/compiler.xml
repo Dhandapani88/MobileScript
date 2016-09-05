@@ -19,8 +19,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="MobileScript_main" target="1.5" />
-      <module name="MobileScript_test" target="1.5" />
+      <module name="MobileScript_main" target="1.7" />
+      <module name="MobileScript_test" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
