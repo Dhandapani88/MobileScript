@@ -61,6 +61,8 @@ public class DriverScript {
 						testParameters.getMobileOSVersion(),
 						testParameters.shouldInstallApplication(),
 						mobileProperties.getProperty("AppiumURL")
+
+
 						);
 				driver = new CraftDriver(appiumDriver);
 				driver.setTestParameters(testParameters);

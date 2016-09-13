@@ -40,7 +40,7 @@ plugin = {"html:build/Testmunk/cucumber-html-report",
 monochrome = true)
 
 */
-@Cucumber.Options(features={"classpath:home/dhandapani/Dhandapani/mymobile_ws/MobileScript/src/test/java/features/Login.feature"},glue="/home/dhandapani/Dhandapani/mymobile_ws/MobileScript/src/test/java/steps",tags="@devDone")
+@Cucumber.Options(features = RunManager.x,glue="steps",tags="@devDone",monochrome = true)
 
 //"src/features/eribankFeature.feature"
 //"src/features/"+RunManager.featureName
@@ -48,7 +48,7 @@ public class RunManager {
 
 		
 	//public static final String x="src/features/eribankFeature.feature";
-	public static final String x="src/java/features/Login.feature";
+	public static final String x="/home/dhandapani/Dhandapani/mymobile_ws/MobileScript/src/test/java/features/Login.feature";
 	public static CraftDriver driver;
 
 	//public static final String featureName = Settings.loadFromPropertiesFileForMobile().getProperty("FeatureName");
@@ -62,6 +62,8 @@ public class RunManager {
 		testParameters.setExecutionMode(executionMode);
 		testParameters.setMobileExecutionPlatform(mobileExecutionPlatform);
 		testParameters.setPlatform(platform);
+		testParameters.setDeviceName(deviceName);
+		testParameters.setmobileOSVersion(mobileOsVersion);
 		testParameters.setCurrentTestInstance(testInstance);
 		DriverScript driverScript = new DriverScript(testParameters);
 		driverScript.driveTestExecution();

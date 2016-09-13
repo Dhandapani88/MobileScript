@@ -26,8 +26,9 @@ public class Inti {
     {
         //runManager.testRunner("Instance1", ExecutionMode.MOBILE, MobileExecutionPlatform.ANDROID,
         //   "5.0.2", Platform.MAC, "0a2bcb71");
-        runManager.testRunner("Instance1", ExecutionMode.MOBILE, MobileExecutionPlatform.ANDROID,
-                "6.0.1", Platform.LINUX, "HT59TBE00192");
+        runManager.testRunner("Instance1",ExecutionMode.MOBILE,MobileExecutionPlatform.ANDROID,
+                "6.0.1", Platform.getCurrent(),"HT59TBE00192");
+
 
     }
 
