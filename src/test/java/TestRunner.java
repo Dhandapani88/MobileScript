@@ -15,20 +15,20 @@ import cucumber.api.CucumberOptions;
 import supportLibraries.DriverScript;
 
 
-@RunWith(ExtendedCucumber.class)
-@ExtendedCucumberOptions(
-//jsonReport = TestRunner.reportPath+"/cucumber.json",
-        jsonUsageReport = "build/APIDemos/cucumber-usage.json",
-        outputFolder = "build/APIDemos/",
-        detailedReport = true,
-        detailedAggregatedReport = true,
-        overviewReport = true,
-        usageReport = false,
-        coverageReport = false
-//screenShotLocation = "build/APIDemos/screenshots/",
-//screenShotSize = "300px",
-//toPDF = false
-)
+@RunWith(Cucumber.class)
+//@ExtendedCucumberOptions(
+////jsonReport = TestRunner.reportPath+"/cucumber.json",
+//        jsonUsageReport = "build/APIDemos/cucumber-usage.json",
+//        outputFolder = "build/APIDemos/",
+//        detailedReport = true,
+//        detailedAggregatedReport = true,
+//        overviewReport = true,
+//        usageReport = false,
+//        coverageReport = false
+////screenShotLocation = "build/APIDemos/screenshots/",
+////screenShotSize = "300px",
+////toPDF = false
+//)
 
 /*
 @CucumberOptions (features = {"src/features/GoogleLaunch.feature","src/features/GoogleSearch.feature"},
@@ -42,7 +42,7 @@ import supportLibraries.DriverScript;
         monochrome = true)
 */
 
-@Cucumber.Options(features="src/test/resources/features",glue="uk/co/o2/myo2middleware/test/steps",tags="@devDone")
+@Cucumber.Options(features={"classpath:src/test/java/features"},glue={"src/test/java/steps/LoginSteps"},tags="@devDone")
 public class TestRunner
 {
     public void testRunner(String testInstance,
