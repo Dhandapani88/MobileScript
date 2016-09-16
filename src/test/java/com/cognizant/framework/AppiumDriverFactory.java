@@ -18,9 +18,26 @@ public class AppiumDriverFactory {
 
 	private static Properties mobileProperties;
 
-	private AppiumDriverFactory() {
+	public AppiumDriverFactory() {
 		// To prevent external instantiation of this class
 	}
+
+	@SuppressWarnings("unused")
+	public static String getAppProperties() {
+		mobileProperties = Settings.getMobilePropertiesInstance();
+
+		String appPack = mobileProperties.getProperty("Application_Package_Name");
+		return appPack;
+	}
+
+	public static String getDeviceProperties() {
+		mobileProperties = Settings.getMobilePropertiesInstance();
+
+		String deviceName = mobileProperties.getProperty("DeviceName");
+		return deviceName;
+	}
+
+
 
 	@SuppressWarnings("rawtypes")
 	public static AppiumDriver getAppiumDriver(

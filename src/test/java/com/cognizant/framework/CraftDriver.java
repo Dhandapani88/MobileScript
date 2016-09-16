@@ -10,14 +10,11 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.*;
 //import org.openqa.selenium.OutputType;
-import org.openqa.selenium.ScreenOrientation;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriver.Navigation;
 import org.openqa.selenium.WebDriver.Options;
 import org.openqa.selenium.WebDriver.TargetLocator;
@@ -31,8 +28,9 @@ import org.openqa.selenium.remote.FileDetector;
 import org.openqa.selenium.remote.Response;
 import org.openqa.selenium.remote.SessionId;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.WebElement;
 
 import com.google.gson.JsonObject;
 
@@ -841,5 +839,59 @@ public class CraftDriver {
 	@SuppressWarnings("rawtypes")
 	public String getAppStrings(String language) {
 		return ((AppiumDriver) driver).getAppStrings(language);
+	}
+
+	public WebElement waitForElementToAppear(int seconds, final By locator) {
+		return waiting(seconds).until(
+				ExpectedConditions.visibilityOfElementLocated(locator));
+	}
+
+	public WebElement waitForElementToAppear(final By locator) {
+		return waiting(30).until(
+				ExpectedConditions.visibilityOfElementLocated(locator));
+	}
+
+	public List<WebElement> waitForElementsToAppear(final By locator) {
+		return waiting(30).until(
+				ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
+	}
+
+
+	public WebElement waitForElementToPresent(final By locator) {
+		return waiting(30).until(
+				ExpectedConditions.presenceOfElementLocated(locator));
+	}
+
+	public WebElement waitForElementToPresent(int seconds ,final By locator) {
+		return waiting(seconds).until(
+				ExpectedConditions.presenceOfElementLocated(locator));
+	}
+
+	public List<WebElement> waitForElementsToPresent(By locator) {
+		return waiting(30).until(
+				ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+	}
+
+	private Wait<WebDriver> waiting(int duration) {
+		return new FluentWait<WebDriver>(driver)
+				.withTimeout(duration, TimeUnit.SECONDS)
+				.pollingEvery(100, TimeUnit.MILLISECONDS)
+				.ignoring(NoSuchElementException.class);
+	}
+
+	public void temporaryImplicitWait(int duration, TimeUnit timeUnit) {
+		driver.manage().timeouts().implicitlyWait(duration, timeUnit);
+	}
+
+	public void waitFor(int seconds) {
+		int count = seconds;
+		while (count != 0) {
+			try {
+				Thread.sleep(1000);
+				count--;
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
