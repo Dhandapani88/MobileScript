@@ -42,7 +42,7 @@ import supportLibraries.DriverScript;
         monochrome = true)
 */
 
-@CucumberOptions(features={"classpath:src/test/java/features"},glue={"src/test/java/steps/LoginSteps"},tags="@devDone")
+@CucumberOptions(features={"classpath:src/test/java/features"},glue={"src/test/java/steps/LoginSteps"},tags="@dp")
 public class TestRunner
 {
     public void testRunner(String testInstance,

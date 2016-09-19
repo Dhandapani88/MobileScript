@@ -18,7 +18,7 @@ import java.util.Properties;
 import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
-@RunWith(Cucumber.class)
+
 //@ExtendedCucumberOptions(
 //jsonReport="build/Testmunk/cucumber.json",
 //jsonUsageReport = "build/Testmunk/cucumber-usage.json",
@@ -40,8 +40,8 @@ plugin = {"html:build/Testmunk/cucumber-html-report",
 monochrome = true)
 
 */
-
-@CucumberOptions(features = "src/test/java/features",glue={"classpath:src/test/java/steps"},tags="@dp",monochrome = true,format = {"pretty","html:target/Destination"})
+@RunWith(Cucumber.class)
+@CucumberOptions(features = "/home/dhandapani/Dhandapani/mymobile_ws/MobileScript/src/test/java/features/Login.feature",glue="steps",tags="@devDone",monochrome = true,format = {"pretty","html:target/Destination"})
 
 //"src/features/eribankFeature.feature"
 //"src/features/"+RunManager.featureName

@@ -4,10 +4,12 @@ import Runner.RunManager;
 import com.cognizant.framework.AppiumDriverFactory;
 import com.cognizant.framework.CraftDriver;
 import cucumber.api.DataTable;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.java.it.Data;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -22,17 +24,15 @@ import supportLibraries.AppiumSetup;
 public class LoginSteps extends RunManager {
 
 
-
     //AppiumDriverFactory driver;
     //CraftDriver driver;
     LoginPage objLogin = new LoginPage(driver);
-    OnboadingPage ObjOnboard = new OnboadingPage(driver);
+
 
     @Given("^I should see Myo(\\d+) Logo on the login page$")
     public void i_should_see_Myo_Logo_on_the_login_page(int arg1) throws Throwable {
 
     }
-
 
 
     @Given("^I should see \"(.*?)\" on the login page$")
@@ -81,15 +81,16 @@ public class LoginSteps extends RunManager {
         objLogin.verifyPinPage();
     }
 
-  @Then("^I should see fingerprint ID Page as following")
-   public void i_should_see(DataTable fingerPrintInfo) throws Throwable {
-      objLogin.verifyFingerPrintPage(fingerPrintInfo);
-   }
+    @Then("^I should see fingerprint ID Page as following")
+    public void i_should_see(DataTable fingerPrintInfo) throws Throwable {
+        objLogin.verifyFingerPrintPage(fingerPrintInfo);
+    }
 
-   @Then("^I should click not now button$")
-   public void i_should_click_not_now_button() throws Throwable {
-       objLogin.verifyClickNotNowSubmit();
-   }
+    @Then("^I should click not now button$")
+    public void i_should_click_not_now_button() throws Throwable {
+        objLogin.verifyClickNotNowSubmit();
+    }
+
     @Then("^I should see fingerprint ID Messages$")
     public void i_should_click_not_now_button(DataTable fingerPrintInfoMessage) throws Throwable {
         objLogin.verifyFingerPrintMessages(fingerPrintInfoMessage);
@@ -101,33 +102,61 @@ public class LoginSteps extends RunManager {
         objLogin.verifyClickOkButton();
     }
 
-  @Then("^I should see Broadcast Message$")
-   public void i_should_see_Broadcast_Message_OK_button(DataTable broadcastMessages) throws Throwable {
-      objLogin.verifyBroadcastMessage(broadcastMessages);
-  }
+    @Then("^I should see Broadcast Message$")
+    public void i_should_see_Broadcast_Message(DataTable broadcastMessages) throws Throwable {
+        objLogin.verifyBroadcastMessage(broadcastMessages);
+    }
+
     @Then("^I should see home screen$")
-   public void i_should_see_home_screen() throws Throwable {
+    public void i_should_see_home_screen() throws Throwable {
         objLogin.verifyHomePage();
-   }
+    }
 
     @Then("^I should signout$")
     public void I_should_signout() throws Throwable {
         objLogin.logouts();
     }
 
+    @Given("^I uninstall old app$")
+    public void i_uninstall_old_app() throws Throwable {
+        objLogin.uninstallPackage();
+    }
 
-//    @Given("^I uninstall old app$")
-//    public void i_Uninstall_Old_App() throws Throwable {
-//        ObjOnboard.uninstallPackage();
-//    }
-//
-//
-//    @And("^I install new app$")
-//    public void i_Install_New_App() throws Throwable {
-//        ObjOnboard.installPackage();
-//
-//    }
+    @Given("^I install new app$")
+    public void I_install_new_app() throws Throwable {
+        objLogin.installPackage();
+    }
 
+    @Given("^I Quit Driver$")
+    public void I_Quit_Driver() throws Throwable {
+        objLogin.quitDriver();
+    }
+
+
+    @And("^I should see heading and sub_heading on Onboarding screens$")
+    public void iShouldSeeHeadingAndSub_headingOnOnboardingScreens(DataTable onboardingInformation) throws Throwable {
+        objLogin.validateOnboardingscreens(onboardingInformation);
+    }
+
+    @And("^I click on Get Started Button$")
+    public void i_Click_On_Get_Started_Button() throws Throwable {
+        objLogin.clickGetStartedButton();
+    }
+
+    @Then("^I should click ok button on Broadcast Message$")
+    public void i_Should_Click_Ok_Button_On_Broadcast_Message() throws Throwable {
+        objLogin.verifyBroadcastOkButton();
+    }
+
+    @And("^I should see the What's new information$")
+    public void iShouldSeeTheWhatSNewInformation(DataTable whatsnewInformation) throws Throwable {
+        objLogin.verifyWhatsNewScreen(whatsnewInformation);
+    }
+
+    @And("^I close the close icon on the what's new screen$")
+    public void iCloseTheCloseIconOnTheWhatSNewScreen() throws Throwable {
+        objLogin.clickWhatsnewCloseIcon();
+    }
 }
 
 

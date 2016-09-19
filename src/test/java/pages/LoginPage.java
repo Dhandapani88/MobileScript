@@ -9,6 +9,7 @@ import java.util.*;
 
 import com.cognizant.framework.*;
 import cucumber.api.DataTable;
+import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -205,6 +206,10 @@ public class LoginPage {
     public By onboardingPageIndicator = By.id("" + packageUrl + ":id/page_indicator");
     public By onboardingGetStarted = By.id("" + packageUrl + ":id/button_next");
     public By onboardingImages = By.id("" + packageUrl + ":id/button_next");
+    public By onboardingWalkThruView = By.id("" + packageUrl + ":id/walkthrough_view");
+
+    //WHAT'S NEW
+    public By whatsnewtile = By.id("" + packageUrl + ":id/title");
 
 
     //driver.findElementByClassName("android.widget.ImageView").click()
@@ -299,17 +304,18 @@ public class LoginPage {
 
     public void verifyClickOkButton() throws InterruptedException {
         driver.findElement(fingerPrintPageMessageOkButton).click();
-        Thread.sleep(5000);
+    }
+
+    public void verifyBroadcastOkButton() throws InterruptedException {
+        driver.findElement(broadcastOkButton).click();
+
     }
 
 
-    public void verifyBroadcastMessage(DataTable broadcastMessages){
+    public void verifyBroadcastMessage(DataTable broadcastMessages) {
         for (int i = 0; i < broadcastMessages.getGherkinRows().size(); i++) {
-
-           // assertEquals(getDataTableCell(broadcastMessages, 0, 0), driver.waitForElementToAppear(braodcastHeading).getText());
-           // assertEquals(getDataTableCell(broadcastMessages, 1, 0), driver.waitForElementToAppear(broadcastMessage).getText());
-            driver.findElement(broadcastOkButton).click();
-
+            assertEquals(getDataTableCell(broadcastMessages, 0, 0), driver.waitForElementToAppear(braodcastHeading).getText());
+            assertEquals(getDataTableCell(broadcastMessages, 1, 0), driver.waitForElementToAppear(broadcastMessage).getText());
         }
     }
 
@@ -324,131 +330,155 @@ public class LoginPage {
 
 
     public void logouts() throws InterruptedException {
-
         for (int i = 1; i <= 3; i++) {
-
             if (driver.findElement(haburgerMenuButton).isDisplayed()) {
-                //	objLogin.clickGlobalNavigation();
                 driver.findElement(haburgerMenuButton).click();
                 break;
             }
         }
-            assertTrue(driver.findElement(helpTipsMenu).isDisplayed());
-            driver.scrollTo("Sign out");
-            if (driver.findElement(signOut).isDisplayed()) {
-                clickLogout();
-                driver.findElement(signOutOk).click();
-                Thread.sleep(1000);
-            }
-            assertTrue(driver.findElement(signInButton).isDisplayed());
+        assertTrue(driver.findElement(helpTipsMenu).isDisplayed());
+        driver.scrollTo("Sign out");
+        if (driver.findElement(signOut).isDisplayed()) {
+            clickLogout();
+            driver.findElement(signOutOk).click();
+            Thread.sleep(1000);
         }
-
+        assertTrue(driver.findElement(signInButton).isDisplayed());
+    }
 
     public void clickLogout() throws InterruptedException {
         driver.findElement(signOut).click();
         Thread.sleep(2000);
 
-
     }
 
     public void clickChangePin() {
         driver.findElement(changePin).click();
-
     }
 
     public void clickForgetSignIn() {
         driver.findElement(forgettenSignIn).click();
-
     }
 
     public void clickLiveStatusChecker() {
         driver.findElement(liveStatusChecker).click();
-
     }
 
     public void clickContactPreferences() {
         driver.findElement(contactPreferences).click();
-
     }
 
 
-
-	/*
-    uk.co.o2.android.myo2.dev.debug:id/title_top
-	uk.co.o2.android.myo2.dev.debug:id/title_bottom
-	uk.co.o2.android.myo2.dev.debug:id/tabs
-	
-	
-	android.widget.FrameLayout
-	
-	uk.co.o2.android.myo2.dev.debug:id/section_heading
-	*/
-
-
-    // Bills
-//	public  By billPanne = By.id(""+packageUrl+":id/top_panel");
-//
-//	public void clickUpgrade() throws InterruptedException {
-//   	 driver.findElement(upgradeHeader).click();
-//   	 Thread.sleep(1000);
-//    }
-//
-//	public void clickButtonSignOutCancel() throws InterruptedException {
-//    	 driver.findElement(signOutCancel).click();
-//    	 Thread.sleep(1000);
-//     }
-//
     public void clickButtonSignOutOk() throws InterruptedException {
         driver.findElement(signOutOk).click();
         Thread.sleep(1000);
     }
-//
-//     public void clickButtonCancel() throws InterruptedException {
-//    	 driver.findElement(signOutCancel).click();
-//    	 Thread.sleep(1000);
-//     }
-//
-//     public void clickButtonOk() throws InterruptedException {
-//    	 driver.findElement(signOutOk).click();
-//    	 Thread.sleep(1000);
-//     }
-//
-//     public void clickNativegateBack() throws InterruptedException {
-//    	 driver.findElement(navigateBack).click();
-//    	 Thread.sleep(1000);
-//     }
-//
-//     public void navigateHome() throws InterruptedException {
-//    	 for(int i=0;i<4;i++){
-//				if(driver.findElement(navigateBack).isDisplayed()){
-//					driver.findElement(navigateBack).click();
-//					}else{
-//				}
-//		}
-//     }
+
+    public void uninstallPackage() throws InterruptedException {
+        String DeviceName = deviceName;
+        String packageNames = packageUrl;
+        uninstallApp(DeviceName);
+        Thread.sleep(1500);
 
 
-//    public void timeStampCal() throws IOException {
-//		 java.util.Date date= new java.util.Date();
-//		 FileOutputStream fop = null;
-//			File file;
-//
-//		  file = new File("c:\\timestamp.txt");
-//			fop = new FileOutputStream(file);
-//
-//			if (!file.exists()) {
-//				file.createNewFile();
-//			}
-//
-//			int contentInBytes = new Timestamp(date.getTime()).getMinutes();
-//
-//			fop.write(contentInBytes);
-//			fop.flush();
-//			fop.close();
-//
-//		 System.out.println(new Timestamp(date.getTime()));
-//	}
+    }
+
+    public void uninstallApp(String dname) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder("adb", "-s", dname, "shell", "pm", "uninstall", "uk.co.o2.android.myo2.dev.debug");
+            Process pc = pb.start();
+            pc.waitFor();
+            System.out.println("Done");
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public void installPackage() throws InterruptedException {
+        String packageNames = applicationName;
+
+        installApp(packageNames);
+        Thread.sleep(1500);
+    }
+
+    public void quitDriver() throws InterruptedException {
+        driver.quit();
+    }
+
+    public void installApp(String packageName) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder("adb", "install", packageName);
+            Process pc = pb.start();
+            pc.waitFor();
+            System.out.println("Done");
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public void validateOnboardingscreens(DataTable onboardingInformation) throws InterruptedException {
+
+        for (int i = 0; i < onboardingInformation.getGherkinRows().size(); i++) {
+            Thread.sleep(4000);
+            assertEquals(getDataTableCell(onboardingInformation, i, 0), driver.findElement(onboardingHeader).getText());
+            assertEquals(getDataTableCell(onboardingInformation, i, 1), driver.findElement(onboardingMessage).getText());
+
+            if (i == 5) {
+                assertTrue(getDataTableCell(onboardingInformation, i, 2).equalsIgnoreCase(driver.findElement(onboardingGetStarted).getText()));
+            } else {
+                assertEquals(getDataTableCell(onboardingInformation, i, 2), driver.findElement(onboardingSkipButton).getText());
+            }
+
+            swipingHorizontal();
+
+        }
+    }
 
 
+    public void swipingHorizontal() throws InterruptedException {
+        //Get the size of screen.
+        Dimension size;
+        size = driver.manage().window().getSize();
+        System.out.println(size);
 
+        //Find swipe start and end point from screen's with and height.
+        //Find startx point which is at right side of screen.
+        int startx = (int) (size.width * 0.90);
+        //Find endx point which is at left side of screen.
+        int endx = (int) (size.width * 0.05);
+        //Find vertical point where you wants to swipe. It is in middle of screen height.
+        int starty = size.height / 2;
+        System.out.println("startx = " + startx + " ,endx = " + endx + " , starty = " + starty);
+
+        //Swipe from Right to Left.
+        driver.swipe(startx, starty, endx, starty, 1000);
+        Thread.sleep(2000);
+
+//        //Swipe from Left to Right.
+//        driver.swipe(endx, starty, startx, starty, 3000);
+//        Thread.sleep(2000);
+    }
+
+    public void clickGetStartedButton() throws InterruptedException {
+        driver.findElement(onboardingGetStarted).click();
+        Thread.sleep(2000);
+    }
+
+    public void verifyWhatsNewScreen(DataTable whatsnewInformation) throws InterruptedException {
+        for (int i = 0; i < whatsnewInformation.getGherkinRows().size(); i++) {
+            assertEquals(getDataTableCell(whatsnewInformation, i, 0), driver.findElement(By.id(("" + packageUrl + ":id/title"))).getText());
+            assertEquals(getDataTableCell(whatsnewInformation, i, 1), driver.findElement(onboardingHeader).getText());
+            assertEquals(getDataTableCell(whatsnewInformation, i, 2), driver.findElement(onboardingMessage).getText());
+            swipingHorizontal();
+        }
+    }
+
+    public void clickWhatsnewCloseIcon() {
+        driver.findElement(By.id(("" + packageUrl + ":id/button_close"))).click();
+    }
 }
+
