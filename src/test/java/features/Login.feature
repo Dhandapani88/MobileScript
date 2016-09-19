@@ -2,6 +2,11 @@ Feature:
   As a user
   I want to login to the application
 
+#  @dp
+#    Scenario: Uninstallation of old app and Installation of new App
+#    Given I uninstall old app
+#    And I install new app
+
   @devDone
   Scenario: login to application
     Given I initialize Appium driver
@@ -23,8 +28,9 @@ Feature:
     |Fingerprint ID for "My O2"|
     |You can turn on fingerprint ID at any time by going to the main menu, choosing Settings, and selecting fingerprint ID.|
     Then I should click ok button
-    And I should see Broadcast Message
-    |Title|
-    |This is a message for android 7.9.0-debug|
+    Then I should click ok button
+#    And I should see Broadcast Message
+#    |Title|
+#    |This is a message for android 7.9.0-debug|
     And I should see home screen
-    Then I Signout
+    Then I should signout

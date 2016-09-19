@@ -22,14 +22,18 @@ import supportLibraries.AppiumSetup;
 public class LoginSteps extends RunManager {
 
 
+
     //AppiumDriverFactory driver;
     //CraftDriver driver;
     LoginPage objLogin = new LoginPage(driver);
+    OnboadingPage ObjOnboard = new OnboadingPage(driver);
 
     @Given("^I should see Myo(\\d+) Logo on the login page$")
     public void i_should_see_Myo_Logo_on_the_login_page(int arg1) throws Throwable {
 
     }
+
+
 
     @Given("^I should see \"(.*?)\" on the login page$")
     public void i_should_see_on_the_login_page(String information) throws Throwable {
@@ -106,10 +110,24 @@ public class LoginSteps extends RunManager {
         objLogin.verifyHomePage();
    }
 
-    @Then("^I Signout$")
-    public void I_Signout() throws Throwable {
+    @Then("^I should signout$")
+    public void I_should_signout() throws Throwable {
         objLogin.logouts();
     }
+
+
+//    @Given("^I uninstall old app$")
+//    public void i_Uninstall_Old_App() throws Throwable {
+//        ObjOnboard.uninstallPackage();
+//    }
+//
+//
+//    @And("^I install new app$")
+//    public void i_Install_New_App() throws Throwable {
+//        ObjOnboard.installPackage();
+//
+//    }
+
 }
 
 

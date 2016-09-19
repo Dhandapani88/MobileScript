@@ -40,7 +40,8 @@ plugin = {"html:build/Testmunk/cucumber-html-report",
 monochrome = true)
 
 */
-@Cucumber.Options(features = "/home/dhandapani/Dhandapani/mymobile_ws/MobileScript/src/test/java/features/Login.feature",glue="steps",tags="@devDone",monochrome = true,format = {"pretty","html:target/Destination"})
+
+@CucumberOptions(features = "src/test/java/features",glue={"classpath:src/test/java/steps"},tags="@dp",monochrome = true,format = {"pretty","html:target/Destination"})
 
 //"src/features/eribankFeature.feature"
 //"src/features/"+RunManager.featureName

@@ -37,6 +37,14 @@ public class AppiumDriverFactory {
 		return deviceName;
 	}
 
+	public static String getAPKProperties() {
+		mobileProperties = Settings.getMobilePropertiesInstance();
+
+		String apkName = mobileProperties.getProperty("Application_Path");
+		return apkName;
+	}
+
+
 
 
 	@SuppressWarnings("rawtypes")
